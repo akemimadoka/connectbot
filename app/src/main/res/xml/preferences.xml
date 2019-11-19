@@ -73,6 +73,12 @@
 	<PreferenceCategory
 		android:title="@string/pref_ui_category">
 
+		<EditTextPreference
+			android:key="font"
+			android:title="Font"
+			android:summary="Font of terminals"
+			/>
+
 		<ListPreference
 			android:key="rotation"
 			android:title="@string/pref_rotation_title"

@@ -30,6 +30,8 @@ public final class PreferenceConstants {
 	public static final boolean PRE_ECLAIR = Build.VERSION.SDK_INT < 5;
 	public static final boolean PRE_FROYO = Build.VERSION.SDK_INT < 8;
 
+	public static final String FONT = "font";
+
 	public static final String MEMKEYS = "memkeys";
 
 	public static final String SCROLLBACK = "scrollback";

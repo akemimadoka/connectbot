@@ -425,6 +425,8 @@ public class TerminalBridge implements VDUDisplay {
 		// force font-size to make sure we resizePTY as needed
 		setFontSize(fontSizeDp);
 
+		setFont(manager.getFont());
+
 		// finally send any post-login string, if requested
 		injectString(host.getPostLogin());
 	}
@@ -515,6 +517,10 @@ public class TerminalBridge implements VDUDisplay {
 
 	public synchronized void tryKeyVibrate() {
 		manager.tryKeyVibrate();
+	}
+
+	private void setFont(Typeface font) {
+		defaultPaint.setTypeface(font);
 	}
 
 	/**

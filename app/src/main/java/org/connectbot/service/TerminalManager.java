@@ -50,6 +50,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -58,6 +59,7 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Manager for SSH connections that runs as a service. This service holds a list
@@ -116,6 +118,8 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 	public boolean hardKeyboardHidden;
 
+	private Typeface font;
+
 	@Override
 	public void onCreate() {
 		Log.i(TAG, "Starting service");
@@ -157,7 +161,21 @@ public class TerminalManager extends Service implements BridgeDisconnectedListen
 
 		connectivityManager = new ConnectivityReceiver(this, lockingWifi);
 
+		final String fontPath = prefs.getString(PreferenceConstants.FONT, "");
+		if (!fontPath.isEmpty()) {
+			try {
+				font = Typeface.createFromFile(fontPath);
+			} catch (Exception e) {
+				Log.e(TAG, e.toString());
+				Toast.makeText(this, String.format("Unable to create font from file \"%s\"", fontPath), Toast.LENGTH_LONG).show();
+			}
+		}
+
 		ProviderLoader.load(this, this);
+	}
+
+	public Typeface getFont() {
+		return font;
 	}
 
 	private void updateSavingKeys() {
